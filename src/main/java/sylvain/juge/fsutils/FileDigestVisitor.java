@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Computes hash for all files found while walking file tree
  */
-class FileDigestVisitor extends SimpleFileVisitor<Path> {
+public class FileDigestVisitor extends SimpleFileVisitor<Path> {
     private final List<FileHash> hashes;
     private final FileDigest fileDigest;
 
