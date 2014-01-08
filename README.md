@@ -5,3 +5,7 @@
 
 Java7 filesytem utilities
 
+-----
+
+Things to do :
+- file hashing benchmark speed, and how to choose buffer size correctly
