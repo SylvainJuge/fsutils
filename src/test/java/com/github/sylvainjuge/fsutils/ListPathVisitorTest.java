@@ -33,6 +33,9 @@ public class ListPathVisitorTest extends TestCase {
             actual.add(sampleFolder.relativize(p));
         }
 
+        // root folder is included in result
+        assertThat(visitor.getList()).contains(sampleFolder);
+
         List<Path> expected = new ArrayList<>();
         expected.add(Paths.get(""));
         expected.add(Paths.get("file1"));
