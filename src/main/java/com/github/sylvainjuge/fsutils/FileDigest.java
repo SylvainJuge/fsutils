@@ -1,4 +1,4 @@
-package sylvain.juge.fsutils;
+package com.github.sylvainjuge.fsutils;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

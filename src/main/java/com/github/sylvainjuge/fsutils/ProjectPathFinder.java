@@ -1,4 +1,4 @@
-package sylvain.juge.fsutils;
+package com.github.sylvainjuge.fsutils;
 
 import java.net.URISyntaxException;
 import java.net.URL;
