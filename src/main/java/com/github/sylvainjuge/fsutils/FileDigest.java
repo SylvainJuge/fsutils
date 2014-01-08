@@ -29,7 +29,7 @@ public final class FileDigest {
     public String digest(Path file) throws IOException {
 
         SeekableByteChannel channel = Files.newByteChannel(file, StandardOpenOption.READ);
-        ByteBuffer readBuffer = ByteBuffer.wrap(new byte[bufferSize]);
+        ByteBuffer readBuffer = ByteBuffer.allocate(bufferSize);
 
         MessageDigest digest;
         try {
@@ -37,14 +37,11 @@ public final class FileDigest {
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(e);
         }
-        int n;
-        do {
+        while (channel.read(readBuffer) > 0) {
+            readBuffer.flip();
+            digest.update(readBuffer);
             readBuffer.clear();
-            n = channel.read(readBuffer);
-            if (0 < n) {
-                digest.update(readBuffer);
-            }
-        } while (0 < n);
+        }
 
         StringBuilder sb = new StringBuilder();
         for (byte b : digest.digest()) {
