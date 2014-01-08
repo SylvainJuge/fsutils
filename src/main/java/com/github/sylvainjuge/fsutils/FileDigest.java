@@ -19,24 +19,14 @@ public final class FileDigest {
         if (bufferSize <= 0) {
             throw new IllegalArgumentException("buffer size must be > 0");
         }
-        try {
-            MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e);
-        }
+        newMessageDigest(algorithm);
     }
 
     public String digest(Path file) throws IOException {
-
         SeekableByteChannel channel = Files.newByteChannel(file, StandardOpenOption.READ);
         ByteBuffer readBuffer = ByteBuffer.allocate(bufferSize);
 
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException(e);
-        }
+        MessageDigest digest = newMessageDigest(algorithm);
         while (channel.read(readBuffer) > 0) {
             readBuffer.flip();
             digest.update(readBuffer);
@@ -49,4 +39,13 @@ public final class FileDigest {
         }
         return sb.toString();
     }
+
+    private static MessageDigest newMessageDigest(String algorithm){
+        try {
+            return MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
 }

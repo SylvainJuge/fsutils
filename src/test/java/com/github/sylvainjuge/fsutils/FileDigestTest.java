@@ -25,8 +25,22 @@ public class FileDigestTest {
         testFile("SHA1", "test message", "35ee8386410d41d14b3f779fc95f4695f4851682");
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void tryNegativeBufferSize() {
+        new FileDigest("SHA1", -1);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void tryZeroBufferSize() {
+        new FileDigest("SHA1", 0);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void tryNonExistingAlgorithm() {
+        new FileDigest("unsupported", 1);
+    }
+
     // TODO : hash non existing file should throw exception
-    // TODO : create with <= 0 buffer size should throw exception
 
     private void testFile(String algorithm, String content, String expected) throws IOException {
         FileDigest digest = new FileDigest(algorithm, 1024);
