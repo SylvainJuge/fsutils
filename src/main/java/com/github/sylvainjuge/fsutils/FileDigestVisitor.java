@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Computes hash for all files found while walking file tree
+ * Computes digest (hash) for all files found while walking file tree
  */
 public class FileDigestVisitor extends SimpleFileVisitor<Path> {
     private final List<FileHash> hashes;

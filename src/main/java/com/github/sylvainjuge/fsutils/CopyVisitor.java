@@ -10,7 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 // TODO : make it work when copying form and to the same FS implementations
 // -> we can't copy and walk file tree at the same time
-// -> requires to first make a list of files to copy, then to copy them
+// -> requires to first make a list of files & folders to copy, then to copy them
 
 /**
  * Copies files and folder recursively from source to destination.

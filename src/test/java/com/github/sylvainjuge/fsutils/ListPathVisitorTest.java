@@ -1,6 +1,5 @@
 package com.github.sylvainjuge.fsutils;
 
-import junit.framework.TestCase;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class ListPathVisitorTest extends TestCase {
+public class ListPathVisitorTest {
 
     @Test
     public void defaultListIsEmpty() {
