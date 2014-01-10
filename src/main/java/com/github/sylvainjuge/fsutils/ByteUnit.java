@@ -2,12 +2,23 @@ package com.github.sylvainjuge.fsutils;
 
 public enum ByteUnit {
 
-    BYTES,
-    KILOBYTES,
-    MEGABYTES,
-    GIGABYTES,
-    TERABYTES,
-    PETABYTES;
+
+    BYTES("b"),
+    KILOBYTES("Kb"),
+    MEGABYTES("Mb"),
+    GIGABYTES("Gb"),
+    TERABYTES("Tb"),
+    PETABYTES("Pb");
+
+    private final String abbreviation;
+
+    ByteUnit(String abbreviation){
+        this.abbreviation = abbreviation;
+    }
+
+    public String abbreviation(){
+        return abbreviation;
+    }
 
     public static final class Converter {
         private final ByteUnit from;
