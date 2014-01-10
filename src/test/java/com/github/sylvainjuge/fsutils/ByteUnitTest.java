@@ -3,14 +3,14 @@ package com.github.sylvainjuge.fsutils;
 import org.testng.annotations.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static com.github.sylvainjuge.fsutils.SizeUnit.*;
+import static com.github.sylvainjuge.fsutils.ByteUnit.*;
 
 @Test(enabled = false)
-public class SizeUnitTest {
+public class ByteUnitTest {
 
     @Test
     public void convertIdentity() {
-        for (SizeUnit unit : values()) {
+        for (ByteUnit unit : values()) {
             assertThat(unit.to(unit).convert(42)).isEqualTo(42);
         }
     }
@@ -18,7 +18,7 @@ public class SizeUnitTest {
     @Test
     public void convertToUpperUnit1024Factor() {
         int factor = 1024;
-        SizeUnit[] units = values();
+        ByteUnit[] units = values();
         for (int i = 0; i < units.length - 1; i++) {
             Converter converter = units[i].to(units[i + 1]);
 
@@ -44,7 +44,7 @@ public class SizeUnitTest {
 
     @Test
     public void zeroReadableUnitIsBytes() {
-        for (SizeUnit u : SizeUnit.values()) {
+        for (ByteUnit u : ByteUnit.values()) {
             assertThat(u.prettyUnit(0)).isEqualTo(BYTES);
         }
     }
@@ -57,10 +57,10 @@ public class SizeUnitTest {
     @Test
     public void generalPrettyUnits() {
 
-        SizeUnit[] units = SizeUnit.values();
+        ByteUnit[] units = ByteUnit.values();
         for (int i = 0; i < units.length - 1; i++) {
-            SizeUnit current = units[i];
-            SizeUnit next = units[i + 1];
+            ByteUnit current = units[i];
+            ByteUnit next = units[i + 1];
 
             assertThat(current.prettyUnit(1023)).isEqualTo(current);
             assertThat(current.prettyUnit(1024)).isEqualTo(next);

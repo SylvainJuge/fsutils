@@ -1,33 +1,25 @@
 package com.github.sylvainjuge.fsutils;
 
+public enum ByteUnit {
 
-// TODO : find appropriate name like ByteUnits
-public enum SizeUnit {
-
-    BYTES("b"),
-    KILOBYTES("Kb"),
-    MEGABYTES("Mb"),
-    GIGABYTES("Gb"),
-    TERABYTES("Tb"),
-    PETABYTES("Pb");
-
-    private final String abbrev;
-
-    SizeUnit(String abbrev){
-        this.abbrev = abbrev;
-    }
+    BYTES,
+    KILOBYTES,
+    MEGABYTES,
+    GIGABYTES,
+    TERABYTES,
+    PETABYTES;
 
     public static final class Converter {
-        private final SizeUnit from;
-        private final SizeUnit to;
+        private final ByteUnit from;
+        private final ByteUnit to;
 
-        private Converter(SizeUnit from, SizeUnit to) {
+        private Converter(ByteUnit from, ByteUnit to) {
             this.from = from;
             this.to = to;
         }
 
         public double convert(long s) {
-            SizeUnit targetUnit = to;
+            ByteUnit targetUnit = to;
             if (targetUnit == null) {
                 targetUnit = from.prettyUnit(s);
             }
@@ -40,13 +32,13 @@ public enum SizeUnit {
             return new Converter(to, from);
         }
 
-        public SizeUnit targetUnit() {
+        public ByteUnit targetUnit() {
             return to;
         }
 
     }
 
-    public Converter to(SizeUnit targetUnit) {
+    public Converter to(ByteUnit targetUnit) {
         return new Converter(this, targetUnit);
     }
 
@@ -54,7 +46,7 @@ public enum SizeUnit {
         return new Converter(this, prettyUnit(quantity));
     }
 
-    public SizeUnit prettyUnit(long quantity) {
+    public ByteUnit prettyUnit(long quantity) {
         if (quantity < 0) {
             throw new IllegalArgumentException("quantity must be >= 0");
         }
@@ -66,7 +58,7 @@ public enum SizeUnit {
         }
         long readableQuantity = quantity;
         int result = this.ordinal();
-        SizeUnit[] values = values();
+        ByteUnit[] values = values();
         while (result < values.length && readableQuantity >= 1024) {
             readableQuantity /= 1024;
             result++;
