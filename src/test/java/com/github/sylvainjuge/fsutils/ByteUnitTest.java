@@ -70,16 +70,16 @@ public class ByteUnitTest {
     @Test
     public void readableUnitsSamples(){
 
-        assertThat(BYTES.toPretty(0).targetUnit()).isEqualTo(BYTES);
-        assertThat(BYTES.toPretty(1).targetUnit()).isEqualTo(BYTES);
-        assertThat(BYTES.toPretty(1024).targetUnit()).isEqualTo(KILOBYTES);
-        assertThat(BYTES.toPretty(1024*1024).targetUnit()).isEqualTo(MEGABYTES);
-        assertThat(BYTES.toPretty(1024*1024*1024).targetUnit()).isEqualTo(GIGABYTES);
+        assertThat(BYTES.toPretty(0).target()).isEqualTo(BYTES);
+        assertThat(BYTES.toPretty(1).target()).isEqualTo(BYTES);
+        assertThat(BYTES.toPretty(1024).target()).isEqualTo(KILOBYTES);
+        assertThat(BYTES.toPretty(1024*1024).target()).isEqualTo(MEGABYTES);
+        assertThat(BYTES.toPretty(1024*1024*1024).target()).isEqualTo(GIGABYTES);
         // we can't test conversion from bytes to bigger units because of long overflow
 
-        assertThat(MEGABYTES.toPretty(1024).targetUnit()).isEqualTo(GIGABYTES);
-        assertThat(MEGABYTES.toPretty(1024*1024).targetUnit()).isEqualTo(TERABYTES);
-        assertThat(MEGABYTES.toPretty(1024*1024*1024).targetUnit()).isEqualTo(PETABYTES);
+        assertThat(MEGABYTES.toPretty(1024).target()).isEqualTo(GIGABYTES);
+        assertThat(MEGABYTES.toPretty(1024*1024).target()).isEqualTo(TERABYTES);
+        assertThat(MEGABYTES.toPretty(1024*1024*1024).target()).isEqualTo(PETABYTES);
 
 
     }

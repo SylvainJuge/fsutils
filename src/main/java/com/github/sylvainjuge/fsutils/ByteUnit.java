@@ -24,9 +24,9 @@ public enum ByteUnit {
         private final ByteUnit from;
         private final ByteUnit to;
 
-        private Converter(ByteUnit from, ByteUnit to) {
-            this.from = from;
-            this.to = to;
+        private Converter(ByteUnit source, ByteUnit target) {
+            this.from = source;
+            this.to = target;
         }
 
         public double convert(long s) {
@@ -43,7 +43,7 @@ public enum ByteUnit {
             return new Converter(to, from);
         }
 
-        public ByteUnit targetUnit() {
+        public ByteUnit target() {
             return to;
         }
 
