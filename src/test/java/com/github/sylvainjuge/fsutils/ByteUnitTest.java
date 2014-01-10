@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static com.github.sylvainjuge.fsutils.ByteUnit.*;
 
-@Test(enabled = false)
 public class ByteUnitTest {
 
     @Test
