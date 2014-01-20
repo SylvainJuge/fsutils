@@ -2,8 +2,7 @@ package com.github.sylvainjuge.fsutils;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.file.Files;
+import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
@@ -23,14 +22,16 @@ public final class FileDigest {
     }
 
     public String digest(Path file) throws IOException {
-        SeekableByteChannel channel = Files.newByteChannel(file, StandardOpenOption.READ);
+        FileChannel channel = FileChannel.open(file, StandardOpenOption.READ);
         ByteBuffer readBuffer = ByteBuffer.allocate(bufferSize);
 
         MessageDigest digest = newMessageDigest(algorithm);
         while (channel.read(readBuffer) > 0) {
             readBuffer.flip();
             digest.update(readBuffer);
-            readBuffer.clear();
+            if (readBuffer.position() == readBuffer.capacity()) {
+                readBuffer.clear();
+            }
         }
 
         StringBuilder sb = new StringBuilder();
@@ -40,7 +41,7 @@ public final class FileDigest {
         return sb.toString();
     }
 
-    private static MessageDigest newMessageDigest(String algorithm){
+    private static MessageDigest newMessageDigest(String algorithm) {
         try {
             return MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
