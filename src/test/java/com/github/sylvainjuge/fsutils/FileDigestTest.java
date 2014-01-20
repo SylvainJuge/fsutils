@@ -43,7 +43,7 @@ public class FileDigestTest {
     // TODO : hash non existing file should throw exception
 
     private void testFile(String algorithm, String content, String expected) throws IOException {
-        FileDigest digest = new FileDigest(algorithm, 1024);
+        FileDigest digest = new FileDigest(algorithm, 8);
         String result = null;
         Path file = null;
         try {
