@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class FileDigestTest {
+public class FileDigesterTest {
 
     private static final String TEST_FILE_ENCODING = "UTF-8";
 
@@ -27,23 +27,23 @@ public class FileDigestTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void tryNegativeBufferSize() {
-        new FileDigest("SHA1", -1);
+        new FileDigester("SHA1", -1);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void tryZeroBufferSize() {
-        new FileDigest("SHA1", 0);
+        new FileDigester("SHA1", 0);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void tryNonExistingAlgorithm() {
-        new FileDigest("unsupported", 1);
+        new FileDigester("unsupported", 1);
     }
 
     // TODO : hash non existing file should throw exception
 
     private void testFile(String algorithm, String content, String expected) throws IOException {
-        FileDigest digest = new FileDigest(algorithm, 8);
+        FileDigester digest = new FileDigester(algorithm, 8);
         String result = null;
         Path file = null;
         try {

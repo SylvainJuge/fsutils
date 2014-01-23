@@ -8,11 +8,11 @@ import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public final class FileDigest {
+public final class FileDigester {
     private final String algorithm;
     private final int bufferSize;
 
-    public FileDigest(String algorithm, int bufferSize) {
+    public FileDigester(String algorithm, int bufferSize) {
         this.algorithm = algorithm;
         this.bufferSize = bufferSize;
         if (bufferSize <= 0) {
