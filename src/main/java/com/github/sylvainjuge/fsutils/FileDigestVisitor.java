@@ -1,5 +1,7 @@
 package com.github.sylvainjuge.fsutils;
 
+import com.google.common.hash.HashFunction;
+
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -13,11 +15,11 @@ import java.util.List;
  */
 public class FileDigestVisitor extends SimpleFileVisitor<Path> {
     private final List<FileHash> hashes;
-    private final FileDigest fileDigest;
+    private final FileDigester fileDigester;
 
-    public FileDigestVisitor(String algorithm, int bufferSize) {
+    public FileDigestVisitor(HashFunction hashFunction, int bufferSize) {
         hashes = new ArrayList<>();
-        fileDigest = new FileDigest(algorithm, bufferSize);
+        fileDigester = new FileDigester(hashFunction, bufferSize);
     }
 
     public List<FileHash> getResult() {
@@ -26,7 +28,7 @@ public class FileDigestVisitor extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        hashes.add(new FileHash(file, fileDigest.digest(file)));
+        hashes.add(new FileHash(file, fileDigester.digest(file)));
         return FileVisitResult.CONTINUE;
     }
 
