@@ -25,23 +25,24 @@ public final class FileDigester {
     }
 
     public String digest(Path file) throws IOException {
-        FileChannel channel = FileChannel.open(file, StandardOpenOption.READ);
-        ByteBuffer readBuffer = ByteBuffer.allocate(bufferSize);
-
+        ByteBuffer readBuffer =  ByteBuffer.allocate(bufferSize);
         Hasher hasher = hashFunction.newHasher();
-        while (channel.read(readBuffer) > 0) {
-            readBuffer.flip();
-            hasher.putBytes(readBuffer.array(), readBuffer.position(), readBuffer.limit());
-            if (readBuffer.position() == readBuffer.capacity()) {
-                readBuffer.clear();
-            }
-        }
 
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hasher.hash().asBytes()) {
-            sb.append(String.format("%02x", b));
+        try (FileChannel channel = FileChannel.open(file, StandardOpenOption.READ)) {
+            while (channel.read(readBuffer) > 0) {
+                readBuffer.flip();
+                hasher.putBytes(readBuffer.array(), readBuffer.position(), readBuffer.limit());
+                if (readBuffer.position() == readBuffer.capacity()) {
+                    readBuffer.clear();
+                }
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hasher.hash().asBytes()) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
         }
-        return sb.toString();
     }
 
 }
