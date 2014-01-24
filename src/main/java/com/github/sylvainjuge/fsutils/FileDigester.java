@@ -2,17 +2,15 @@ package com.github.sylvainjuge.fsutils;
 
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hasher;
-import com.google.common.hash.Hashing;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public final class FileDigester {
+
     private final int bufferSize;
     private final HashFunction hashFunction;
 
@@ -25,7 +23,7 @@ public final class FileDigester {
     }
 
     public String digest(Path file) throws IOException {
-        ByteBuffer readBuffer =  ByteBuffer.allocate(bufferSize);
+        ByteBuffer readBuffer = ByteBuffer.allocate(bufferSize);
         Hasher hasher = hashFunction.newHasher();
 
         try (FileChannel channel = FileChannel.open(file, StandardOpenOption.READ)) {
