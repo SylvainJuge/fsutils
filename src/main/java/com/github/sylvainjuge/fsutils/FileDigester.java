@@ -6,6 +6,8 @@ import com.google.common.hash.Hasher;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
@@ -26,7 +28,7 @@ public final class FileDigester {
         ByteBuffer readBuffer = ByteBuffer.allocate(bufferSize);
         Hasher hasher = hashFunction.newHasher();
 
-        try (FileChannel channel = FileChannel.open(file, StandardOpenOption.READ)) {
+        try (SeekableByteChannel channel = Files.newByteChannel(file, StandardOpenOption.READ)) {
             while (channel.read(readBuffer) > 0) {
                 readBuffer.flip();
                 hasher.putBytes(readBuffer.array(), readBuffer.position(), readBuffer.limit());
