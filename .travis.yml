@@ -7,4 +7,4 @@ env:
 
 after_success:
    - python .travis/addServer.py
-   - "[[ $TRAVIS_BRANCH == \"master\" ]] && { python .travis/addServer.py; mvn clean deploy --settings ~/.m2/mySettings.xml; };"
+   - "[[ $TRAVIS_BRANCH == \"master\" ]] && { mvn clean deploy --settings ~/.m2/mySettings.xml; };"
