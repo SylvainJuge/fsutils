@@ -2,7 +2,7 @@ package com.github.sylvainjuge.fsutils;
 
 import org.testng.annotations.Test;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static com.github.sylvainjuge.fsutils.ByteUnit.*;
 
 public class ByteUnitTest {
