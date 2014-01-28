@@ -1,1 +1,10 @@
 language: java
+
+env:
+   global:
+      - SONATYPE_USERNAME=syl20j
+      - secure: "YRtfkuT/JUkfAg3tFXM32pr+hA8p8osojAFNzEjpL3UkU1t44X65fgKkSngas0gtiNTfeJePVScEdLq6ECofFgb0b8WHgQfedNkrCvm2xx/xqYmllvOsFNTcY1h8ykuw87jOM2WqV1eHvW+9UsevAe6anMcPn1wyXiIxAliyJxU="
+
+after_success:
+   - python .travis/addServer.py
+   - "[[ $TRAVIS_BRANCH == \"master\" ]] && { python travis/addServer.py; mvn clean deploy --settings ~/.m2/mySettings.xml; };"
